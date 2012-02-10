@@ -7,7 +7,7 @@ import org.simplemodeling.SimpleModeler.SimpleModeler
 
 /**
  * @since   Jan. 27, 2012
- * @version Feb.  4, 2012
+ * @version Feb. 10, 2012
  * @auther  ASAMI, Tomoharu
  */
 object SimpleModelerPlugin extends Plugin {
@@ -37,9 +37,16 @@ object SimpleModelerPlugin extends Plugin {
     (out, outputDir, inputDir) => {
       val outs = outputDir / "java/model"
       println("SimpleModeler Model Generation.")
-      println(outs.listFiles.toList)
+      _execute_build(Nil)
       outs.listFiles.toList
     }
+  }
+
+  private def _execute_build(args: Seq[String]) {
+    val argssm = Array.empty[String]
+    val argscmd = "-build" +: args
+    val sm = new SimpleModeler(argssm)
+    sm.executeShellCommand(argscmd.toArray)
   }
 
 /*
